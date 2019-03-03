@@ -1,0 +1,53 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+
+<dom-module id="redde-qr-reader">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <barcodes>
+    <barcode type="qrcode">
+       <symbol seq="0">
+           <data>{{data}}</data>
+           <error />
+       </symbol>
+    </barcode>
+    </barcodes>
+    <iron-ajax
+      id="singInAjax"
+      url="https://api.qrserver.com/v1/read-qr-code/"
+      method="GET"
+      content-type="application/json"
+      handle-as="json"
+      on-response="handleSign">
+    </iron-ajax>
+  </template>
+
+  <script>
+    /**
+     * `redde-qr-reader`
+     * QR reader for general use.
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ReddeQrReader extends Polymer.Element {
+      static get is() { return 'redde-qr-reader'; }
+      static get properties() {
+        return {
+          data: {
+            type: String,
+            value: 'url'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(ReddeQrReader.is, ReddeQrReader);
+  </script>
+</dom-module>
